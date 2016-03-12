@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttons.add((Button) findViewById(R.id.invert));
         buttons.add((Button) findViewById(R.id.blur));
         buttons.add((Button) findViewById(R.id.centerCrop));
+        buttons.add((Button) findViewById(R.id.sepia));
+        buttons.add((Button) findViewById(R.id.glow));
 
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setOnClickListener(this);
@@ -51,6 +53,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.centerCrop:
                 bitmapView.setImageBitmap(BitmapBuilder.centerCrop(BitmapBuilder.drawableToBitmap(imageDrawable)));
+                break;
+            case R.id.sepia:
+                bitmapView.setImageBitmap(BitmapBuilder.toSepia(BitmapBuilder.drawableToBitmap(imageDrawable)));
+                break;
+            case R.id.glow:
+                bitmapView.setImageBitmap(BitmapBuilder.glowEffect(BitmapBuilder.drawableToBitmap(imageDrawable), 40, 0xFF25BBEF));
                 break;
         }
     }

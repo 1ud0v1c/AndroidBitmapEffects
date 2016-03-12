@@ -53,3 +53,23 @@ bitmapView.setImageBitmap(BitmapBuilder.blur(context, BitmapBuilder.drawableToBi
 ```java
 bitmapView.setImageBitmap(BitmapBuilder.centerCrop(BitmapBuilder.drawableToBitmap(imageDrawable)));
 ```
+
+- Sepia effect
+
+![Sepia effect](https://github.com/1ud0v1c/AndroidBitmapEffects/raw/master/screenshots/sepia.png "")
+
+```java
+bitmapView.setImageBitmap(BitmapBuilder.toSepia(BitmapBuilder.drawableToBitmap(imageDrawable)));			    
+```
+
+- Glow effect 
+
+![Glow effect](https://github.com/1ud0v1c/AndroidBitmapEffects/raw/master/screenshots/glow.png "")
+
+The second argument is the radius of the glow
+The third argument is the glow color, here a blue 
+
+```java
+bitmapView.setImageBitmap(BitmapBuilder.glowEffect(BitmapBuilder.drawableToBitmap(imageDrawable), 40, 0xFF25BBEF));
+```
+

@@ -8,6 +8,6 @@
 
     <string name="blur">Blur</string>
     <string name="centerCrop">Center Crop</string>
-   <!--  <string name="grayscale">Grayscale</string>
-    <string name="grayscale">Grayscale</string> -->
+    <string name="sepia">Sepia</string>
+    <string name="glow">Glow</string>
 </resources>

@@ -2,6 +2,7 @@ package ludovic.vimont.androidbitmapeffects;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
@@ -125,9 +126,8 @@ public class BitmapBuilder {
     }
 
     public static Bitmap toGrayscale(Bitmap original, float saturation) {
-        int width, height;
-        height = original.getHeight();
-        width = original.getWidth();
+        int width = original.getWidth();
+        int height = original.getHeight();
 
         Bitmap out = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(out);
@@ -142,5 +142,53 @@ public class BitmapBuilder {
         return out;
     }
 
+    public static Bitmap toSepia(Bitmap original) {
+        int depth = 20;
+        int red, green, blue, pixel;
+        int height = original.getHeight();
+        int width = original.getWidth();
+
+        Bitmap sepia = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        int[] pixels = new int[width * height];
+
+        original.getPixels(pixels, 0, width, 0, 0, width, height);
+        for (int i = 0; i < pixels.length; i++) {
+            pixel = pixels[i];
+
+            red = (pixel >> 16) & 0xFF;
+            green = (pixel >> 8) & 0xFF;
+            blue = pixel & 0xFF;
+
+            red = green = blue = (red + green + blue) / 3;
+            red += (depth * 2);
+            green += depth;
+
+            if (red > 255) red = 255;
+            if (green > 255) green = 255;
+            pixels[i] = (0xFF << 24) | (red << 16) | (green << 8) | blue;
+        }
+        sepia.setPixels(pixels, 0, width, 0, 0, width, height);
+        return sepia;
+    }
+
+    public static Bitmap glowEffect(Bitmap original, int glowRadius, int glowColor) {
+        int margin = 24;
+        int halfMargin = margin / 2;
+
+        Bitmap alpha = original.extractAlpha();
+        Bitmap out =  Bitmap.createBitmap(original.getWidth() + margin, original.getHeight() + margin, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(out);
+
+        Paint paint = new Paint();
+        paint.setColor(glowColor);
+
+        // Outer glow, For Inner glow set Blur.INNER
+        paint.setMaskFilter(new BlurMaskFilter(glowRadius, BlurMaskFilter.Blur.OUTER));
+        canvas.drawBitmap(alpha, halfMargin, halfMargin, paint);
+        canvas.drawBitmap(original, halfMargin, halfMargin, null);
+        alpha.recycle();
+
+        return out;
+    }
 }
 
