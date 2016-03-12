@@ -1,5 +1,6 @@
 package ludovic.vimont.androidbitmapeffects;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,24 +32,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        Drawable imageDrawable = bitmapView.getDrawable();
         switch (view.getId()) {
             case R.id.normal:
                 bitmapView.setImageDrawable(getDrawable(R.drawable.cat));
                 break;
             case R.id.flip:
-                bitmapView.setImageBitmap(BitmapBuilder.flip(BitmapBuilder.drawableToBitmap(bitmapView.getDrawable())));
+                bitmapView.setImageBitmap(BitmapBuilder.flip(BitmapBuilder.drawableToBitmap(imageDrawable)));
                 break;
             case R.id.grayscale:
-                bitmapView.setImageBitmap(BitmapBuilder.toGrayscale(BitmapBuilder.drawableToBitmap(bitmapView.getDrawable()), 0.2f));
+                bitmapView.setImageBitmap(BitmapBuilder.toGrayscale(BitmapBuilder.drawableToBitmap(imageDrawable), 0.2f));
                 break;
             case R.id.invert:
-                bitmapView.setImageBitmap(BitmapBuilder.invert(BitmapBuilder.drawableToBitmap(bitmapView.getDrawable())));
+                bitmapView.setImageBitmap(BitmapBuilder.invert(BitmapBuilder.drawableToBitmap(imageDrawable)));
                 break;
             case R.id.blur:
-                bitmapView.setImageBitmap(BitmapBuilder.blur(getApplicationContext(), BitmapBuilder.drawableToBitmap(bitmapView.getDrawable())));
+                bitmapView.setImageBitmap(BitmapBuilder.blur(getApplicationContext(), BitmapBuilder.drawableToBitmap(imageDrawable)));
                 break;
             case R.id.centerCrop:
-                bitmapView.setImageBitmap(BitmapBuilder.centerCrop(BitmapBuilder.drawableToBitmap(bitmapView.getDrawable())));
+                bitmapView.setImageBitmap(BitmapBuilder.centerCrop(BitmapBuilder.drawableToBitmap(imageDrawable)));
                 break;
         }
     }

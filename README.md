@@ -6,12 +6,18 @@ Just a little library for Android to be able to play with Bitmap
 
 ## Examples 
 
+Here you can find few examples of the effects we can have, first we need to recover the Drawable from our ImageView :
+
+```java
+Drawable imageDrawable = bitmapView.getDrawable();
+```
+
 - Flip effect :
 
 ![Flip effect](https://github.com/1ud0v1c/AndroidBitmapEffects/raw/master/screenshots/flip.png "")
 
 ```java
-bitmapView.setImageBitmap(BitmapBuilder.flip(BitmapBuilder.drawableToBitmap(bitmapView.getDrawable())));
+bitmapView.setImageBitmap(BitmapBuilder.flip(BitmapBuilder.drawableToBitmap(imageDrawable)));
 ```
 
 - Grayscale effect :
@@ -21,7 +27,7 @@ bitmapView.setImageBitmap(BitmapBuilder.flip(BitmapBuilder.drawableToBitmap(bitm
 The second argument is the desire saturation
 
 ```java
-bitmapView.setImageBitmap(BitmapBuilder.toGrayscale(BitmapBuilder.drawableToBitmap(bitmapView.getDrawable()), 0.2f));
+bitmapView.setImageBitmap(BitmapBuilder.toGrayscale(BitmapBuilder.drawableToBitmap(imageDrawable), 0.2f));
 ```
 
 - Invert effect :
@@ -29,7 +35,7 @@ bitmapView.setImageBitmap(BitmapBuilder.toGrayscale(BitmapBuilder.drawableToBitm
 ![Invert effect](https://github.com/1ud0v1c/AndroidBitmapEffects/raw/master/screenshots/invert.png "")
 
 ```java
-bitmapView.setImageBitmap(BitmapBuilder.invert(BitmapBuilder.drawableToBitmap(bitmapView.getDrawable())));
+bitmapView.setImageBitmap(BitmapBuilder.invert(BitmapBuilder.drawableToBitmap(imageDrawable)));
 ```
 
 - Blur effect : 
@@ -37,7 +43,7 @@ bitmapView.setImageBitmap(BitmapBuilder.invert(BitmapBuilder.drawableToBitmap(bi
 ![Blur effect](https://github.com/1ud0v1c/AndroidBitmapEffects/raw/master/screenshots/blur.png "")
 
 ```java
-bitmapView.setImageBitmap(BitmapBuilder.blur(getApplicationContext(), BitmapBuilder.drawableToBitmap(bitmapView.getDrawable())));
+bitmapView.setImageBitmap(BitmapBuilder.blur(context, BitmapBuilder.drawableToBitmap(imageDrawable)));
 ```
 
 - Center crop
@@ -45,6 +51,5 @@ bitmapView.setImageBitmap(BitmapBuilder.blur(getApplicationContext(), BitmapBuil
 ![Center crop](https://github.com/1ud0v1c/AndroidBitmapEffects/raw/master/screenshots/cropcenter.png "")
 
 ```java
-bitmapView.setImageBitmap(BitmapBuilder.centerCrop(BitmapBuilder.drawableToBitmap(bitmapView.getDrawable())));
+bitmapView.setImageBitmap(BitmapBuilder.centerCrop(BitmapBuilder.drawableToBitmap(imageDrawable)));
 ```
-
