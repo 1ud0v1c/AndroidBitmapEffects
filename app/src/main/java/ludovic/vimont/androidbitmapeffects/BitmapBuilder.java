@@ -3,7 +3,6 @@ package ludovic.vimont.androidbitmapeffects;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
@@ -23,6 +22,7 @@ import android.util.DisplayMetrics;
 public class BitmapBuilder {
     private static final float BITMAP_SCALE = 0.3f;
     private static final float BLUR_RADIUS = 15.0f;
+    private static final int RGB_MASK = 0x00FFFFFF;
 
     public static Bitmap blur(Context context, Bitmap image) {
         int width = Math.round(image.getWidth() * BITMAP_SCALE);
@@ -107,27 +107,21 @@ public class BitmapBuilder {
     }
 
     public static Bitmap invert(Bitmap original) {
-        int width = original.getWidth();
-        int height = original.getHeight();
+        Bitmap inversion = original.copy(Bitmap.Config.ARGB_8888, true);
 
-        Bitmap out = Bitmap.createBitmap(width, height, original.getConfig());
-        int A, R, G, B;
-        int pixel;
+        int width = inversion.getWidth();
+        int height = inversion.getHeight();
+        int pixels = width * height;
 
-        for(int x = 0; x < width; ++x) {
-            for(int y = 0; y < height; ++y) {
-                pixel = original.getPixel(x, y);
+        int[] pixel = new int[pixels];
+        inversion.getPixels(pixel, 0, width, 0, 0, width, height);
 
-                A = Color.alpha(pixel);
-                R = Color.red(pixel);
-                G = Color.green(pixel);
-                B = Color.blue(pixel);
-
-                out.setPixel(x, y, Color.argb(A, 255-R, 255-G, 255-B));
-            }
+        for (int i = 0; i < pixels; i++) {
+            pixel[i] ^= RGB_MASK;
         }
+        inversion.setPixels(pixel, 0, width, 0, 0, width, height);
 
-        return out;
+        return inversion;
     }
 
     public static Bitmap toGrayscale(Bitmap original, float saturation) {
