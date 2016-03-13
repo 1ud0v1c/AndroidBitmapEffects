@@ -3,6 +3,7 @@ package ludovic.vimont.androidbitmapeffects;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttons.add((Button) findViewById(R.id.normal));
         buttons.add((Button) findViewById(R.id.flip));
         buttons.add((Button) findViewById(R.id.grayscale));
+        buttons.add((Button) findViewById(R.id.reflection));
         buttons.add((Button) findViewById(R.id.invert));
         buttons.add((Button) findViewById(R.id.blur));
         buttons.add((Button) findViewById(R.id.centerCrop));
@@ -59,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.glow:
                 bitmapView.setImageBitmap(BitmapBuilder.glowEffect(BitmapBuilder.drawableToBitmap(imageDrawable), 40, 0xFF25BBEF));
+                break;
+            case R.id.reflection:
+                bitmapView.setImageBitmap(BitmapBuilder.reflectionEffect(BitmapBuilder.drawableToBitmap(imageDrawable), 4));
                 break;
         }
     }

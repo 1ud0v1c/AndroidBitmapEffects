@@ -5,6 +5,7 @@
     <string name="invert">Invert</string>
     <string name="flip">Flip</string>
     <string name="grayscale">Grayscale</string>
+    <string name="reflection">Reflection</string>
 
     <string name="blur">Blur</string>
     <string name="centerCrop">Center Crop</string>

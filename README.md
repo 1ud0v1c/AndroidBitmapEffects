@@ -73,3 +73,12 @@ The third argument is the glow color, here a blue
 bitmapView.setImageBitmap(BitmapBuilder.glowEffect(BitmapBuilder.drawableToBitmap(imageDrawable), 40, 0xFF25BBEF));
 ```
 
+- Reflection effect
+
+![Reflection effect](https://github.com/1ud0v1c/AndroidBitmapEffects/raw/master/screenshots/reflection.png "")
+
+The second argument is the gap between the original image and the reflected image 
+
+```java
+bitmapView.setImageBitmap(BitmapBuilder.reflectionEffect(BitmapBuilder.drawableToBitmap(imageDrawable), 4));
+```

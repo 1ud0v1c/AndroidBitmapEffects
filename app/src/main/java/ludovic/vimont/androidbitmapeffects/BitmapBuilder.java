@@ -2,16 +2,20 @@ package ludovic.vimont.androidbitmapeffects;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.graphics.ComposeShader;
+import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.renderscript.Allocation;
@@ -19,6 +23,7 @@ import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 public class BitmapBuilder {
     private static final float BITMAP_SCALE = 0.3f;
@@ -190,5 +195,32 @@ public class BitmapBuilder {
 
         return out;
     }
-}
 
+
+    public static Bitmap reflectionEffect(Bitmap original, int reflectionGap) {
+        int width = original.getWidth();
+        int height = original.getHeight();
+
+        Matrix matrix = new Matrix();
+        matrix.preScale(1, -1);
+
+        Bitmap reflectionImage = Bitmap.createBitmap(original, 0, height/2, width, height/2, matrix, false);
+        Bitmap bitmapWithReflection = Bitmap.createBitmap(width, (height + height/2), Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(bitmapWithReflection);
+        canvas.drawBitmap(original, 0, 0, null);
+
+        Paint deafaultPaint = new Paint();
+        canvas.drawRect(0, height, width, height + reflectionGap, deafaultPaint);
+        canvas.drawBitmap(reflectionImage,0, height + reflectionGap, null);
+
+        Paint paint = new Paint();
+        LinearGradient shader = new LinearGradient(0, original.getHeight(), 0, bitmapWithReflection.getHeight() + reflectionGap, 0x70ffffff, 0x00ffffff, Shader.TileMode.CLAMP);
+
+        paint.setShader(shader);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+        canvas.drawRect(0, height, width, bitmapWithReflection.getHeight() + reflectionGap, paint);
+
+        return bitmapWithReflection;
+    }
+}

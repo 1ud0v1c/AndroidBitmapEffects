@@ -72,6 +72,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/grayscale" />
+
+            <Button
+                android:id="@+id/reflection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reflection" />
         </LinearLayout>
 
         <LinearLayout
