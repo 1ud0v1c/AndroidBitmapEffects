@@ -11,4 +11,5 @@
     <string name="centerCrop">Center Crop</string>
     <string name="sepia">Sepia</string>
     <string name="glow">Glow</string>
+    <string name="rounded_corners">Rounded Corners</string>
 </resources>

@@ -82,3 +82,13 @@ The second argument is the gap between the original image and the reflected imag
 ```java
 bitmapView.setImageBitmap(BitmapBuilder.reflectionEffect(BitmapBuilder.drawableToBitmap(imageDrawable), 4));
 ```
+
+- Rounded Corners
+
+![Rounded corners](https://github.com/1ud0v1c/AndroidBitmapEffects/raw/master/screenshots/rounded_corners.png "")
+
+The second argument is the size of the radius. 
+
+```java
+bitmapView.setImageBitmap(BitmapBuilder.getRoundedCornerImage(BitmapBuilder.drawableToBitmap(imageDrawable), 50));
+```

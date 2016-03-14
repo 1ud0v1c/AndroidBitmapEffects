@@ -212,7 +212,7 @@ public class BitmapBuilder {
 
         Paint deafaultPaint = new Paint();
         canvas.drawRect(0, height, width, height + reflectionGap, deafaultPaint);
-        canvas.drawBitmap(reflectionImage,0, height + reflectionGap, null);
+        canvas.drawBitmap(reflectionImage, 0, height + reflectionGap, null);
 
         Paint paint = new Paint();
         LinearGradient shader = new LinearGradient(0, original.getHeight(), 0, bitmapWithReflection.getHeight() + reflectionGap, 0x70ffffff, 0x00ffffff, Shader.TileMode.CLAMP);
@@ -223,4 +223,5 @@ public class BitmapBuilder {
 
         return bitmapWithReflection;
     }
+
 }

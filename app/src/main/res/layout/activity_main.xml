@@ -26,6 +26,7 @@
         android:id="@+id/bitmapView"
         android:src="@drawable/cat"
         android:scaleType="fitCenter"
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/titleView"
@@ -110,6 +111,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/glow" />
+
+            <Button
+                android:id="@+id/rounded_corners"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rounded_corners" />
         </LinearLayout>
     </LinearLayout>
 
