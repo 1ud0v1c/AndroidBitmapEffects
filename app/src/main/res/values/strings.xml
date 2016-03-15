@@ -12,4 +12,6 @@
     <string name="sepia">Sepia</string>
     <string name="glow">Glow</string>
     <string name="rounded_corners">Rounded Corners</string>
+
+    <string name="sketch">Sketch</string>
 </resources>

@@ -2,12 +2,11 @@ package ludovic.vimont.androidbitmapeffects;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
-import android.graphics.ComposeShader;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -25,8 +24,10 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import java.nio.IntBuffer;
+
 public class BitmapBuilder {
-    private static final float BITMAP_SCALE = 0.3f;
+    private static final float BITMAP_SCALE = 1.0f;
     private static final float BLUR_RADIUS = 15.0f;
     private static final int RGB_MASK = 0x00FFFFFF;
 
@@ -205,7 +206,7 @@ public class BitmapBuilder {
         matrix.preScale(1, -1);
 
         Bitmap reflectionImage = Bitmap.createBitmap(original, 0, height/2, width, height/2, matrix, false);
-        Bitmap bitmapWithReflection = Bitmap.createBitmap(width, (height + height/2), Bitmap.Config.ARGB_8888);
+        Bitmap bitmapWithReflection = Bitmap.createBitmap(width, (height + height / 2), Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(bitmapWithReflection);
         canvas.drawBitmap(original, 0, 0, null);
@@ -224,4 +225,60 @@ public class BitmapBuilder {
         return bitmapWithReflection;
     }
 
+
+    public static Bitmap sketchEffect(Context context, Bitmap original) {
+        Bitmap grayScaleBitamp = BitmapBuilder.toGrayscale(original, 0.0f);
+        Bitmap invertedBitmap = BitmapBuilder.invert(grayScaleBitamp);
+        Bitmap blurInvertedBitmap = BitmapBuilder.blur(context,  invertedBitmap);
+        return BitmapBuilder.ColorDodgeBlend(blurInvertedBitmap, grayScaleBitamp);
+    }
+
+    private static int colordodge(int in1, int in2) {
+        float image = (float)in2;
+        float mask = (float)in1;
+        return ((int) ((image == 255) ? image:Math.min(255, (((long)mask << 8 ) / (255 - image)))));
+
+    }
+
+    public static Bitmap ColorDodgeBlend(Bitmap source, Bitmap layer) {
+        Bitmap base = source.copy(Bitmap.Config.ARGB_8888, true);
+        Bitmap blend = layer.copy(Bitmap.Config.ARGB_8888, false);
+
+        IntBuffer buffBase = IntBuffer.allocate(base.getWidth() * base.getHeight());
+        base.copyPixelsToBuffer(buffBase);
+        buffBase.rewind();
+
+        IntBuffer buffBlend = IntBuffer.allocate(blend.getWidth() * blend.getHeight());
+        blend.copyPixelsToBuffer(buffBlend);
+        buffBlend.rewind();
+
+        IntBuffer buffOut = IntBuffer.allocate(base.getWidth() * base.getHeight());
+        buffOut.rewind();
+
+        while (buffOut.position() < buffOut.limit()) {
+            int filterInt = buffBlend.get();
+            int srcInt = buffBase.get();
+
+            int redValueFilter = Color.red(filterInt);
+            int greenValueFilter = Color.green(filterInt);
+            int blueValueFilter = Color.blue(filterInt);
+
+            int redValueSrc = Color.red(srcInt);
+            int greenValueSrc = Color.green(srcInt);
+            int blueValueSrc = Color.blue(srcInt);
+
+            int redValueFinal = BitmapBuilder.colordodge(redValueFilter, redValueSrc);
+            int greenValueFinal = BitmapBuilder.colordodge(greenValueFilter, greenValueSrc);
+            int blueValueFinal = BitmapBuilder.colordodge(blueValueFilter, blueValueSrc);
+
+            int pixel = Color.argb(255, redValueFinal, greenValueFinal, blueValueFinal);
+            buffOut.put(pixel);
+        }
+
+        buffOut.rewind();
+        base.copyPixelsFromBuffer(buffOut);
+        blend.recycle();
+
+        return base;
+    }
 }

@@ -92,3 +92,13 @@ The second argument is the size of the radius.
 ```java
 bitmapView.setImageBitmap(BitmapBuilder.getRoundedCornerImage(BitmapBuilder.drawableToBitmap(imageDrawable), 50));
 ```
+
+- Sketch effect
+
+![Sketch effect](https://github.com/1ud0v1c/AndroidBitmapEffects/raw/master/screenshots/sketch.png "")
+
+This effect takes a long time (~6-7 sec), the blur is responsible for that. 
+
+```java
+bitmapView.setImageBitmap(BitmapBuilder.sketchEffect(getApplicationContext(), BitmapBuilder.drawableToBitmap(imageDrawable)));
+```
