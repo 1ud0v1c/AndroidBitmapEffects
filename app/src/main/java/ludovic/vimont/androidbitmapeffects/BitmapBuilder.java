@@ -17,10 +17,10 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.renderscript.Allocation;
-import android.renderscript.Element;
-import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlur;
+import android.support.v8.renderscript.Allocation;
+import android.support.v8.renderscript.Element;
+import android.support.v8.renderscript.RenderScript;
+import android.support.v8.renderscript.ScriptIntrinsicBlur;
 import android.util.DisplayMetrics;
 
 import java.nio.IntBuffer;
@@ -37,7 +37,7 @@ public class BitmapBuilder {
         Bitmap inputBitmap = Bitmap.createScaledBitmap(image, width, height, false);
         Bitmap outputBitmap = Bitmap.createBitmap(inputBitmap);
 
-        RenderScript rs = RenderScript.create(context);
+        RenderScript rs = android.support.v8.renderscript.RenderScript.create(context);
         ScriptIntrinsicBlur theIntrinsic = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
         Allocation tmpIn = Allocation.createFromBitmap(rs, inputBitmap);
         Allocation tmpOut = Allocation.createFromBitmap(rs, outputBitmap);
