@@ -75,11 +75,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/grayscale" />
 
-            <Button
-                android:id="@+id/reflection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/reflection" />
         </LinearLayout>
 
         <LinearLayout
@@ -113,11 +108,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/glow" />
 
-            <Button
-                android:id="@+id/rounded_corners"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/rounded_corners" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -126,6 +117,18 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/reflection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reflection" />
+
+            <Button
+                android:id="@+id/rounded_corners"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rounded_corners" />
 
             <Button
                 android:id="@+id/cartoon"

@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,9 +19,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private final int GET_FROM_GALLERY = 3;
-
-    private Drawable currentImage;
     private ImageView bitmapView;
+    private Drawable currentImage;
     private ArrayList<Button> buttons = new ArrayList<>();
 
     @Override
@@ -75,42 +73,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void loadBitmap(String methodToExecute) {
+        BitmapWorkerTask task = new BitmapWorkerTask(getApplicationContext(), bitmapView);
+        task.execute(methodToExecute);
+    }
+
     @Override
     public void onClick(View view) {
-        Drawable imageDrawable = bitmapView.getDrawable();
         switch (view.getId()) {
             case R.id.normal:
                 bitmapView.setImageDrawable(currentImage);
                 break;
             case R.id.flip:
-                bitmapView.setImageBitmap(BitmapBuilder.flip(BitmapBuilder.drawableToBitmap(imageDrawable)));
+                loadBitmap("flip");
                 break;
             case R.id.grayscale:
-                bitmapView.setImageBitmap(BitmapBuilder.toGrayscale(BitmapBuilder.drawableToBitmap(imageDrawable), 0.2f));
+                loadBitmap("toGrayscale");
                 break;
             case R.id.invert:
-                bitmapView.setImageBitmap(BitmapBuilder.invert(BitmapBuilder.drawableToBitmap(imageDrawable)));
+                loadBitmap("invert");
                 break;
             case R.id.blur:
-                bitmapView.setImageBitmap(BitmapBuilder.blur(getApplicationContext(), BitmapBuilder.drawableToBitmap(imageDrawable)));
+                loadBitmap("blur");
                 break;
             case R.id.centerCrop:
-                bitmapView.setImageBitmap(BitmapBuilder.centerCrop(BitmapBuilder.drawableToBitmap(imageDrawable)));
+                loadBitmap("centerCrop");
                 break;
             case R.id.sepia:
-                bitmapView.setImageBitmap(BitmapBuilder.toSepia(BitmapBuilder.drawableToBitmap(imageDrawable)));
+                loadBitmap("sepia");
                 break;
             case R.id.glow:
-                bitmapView.setImageBitmap(BitmapBuilder.glowEffect(BitmapBuilder.drawableToBitmap(imageDrawable), 40, 0xFF25BBEF));
+                loadBitmap("glow");
                 break;
             case R.id.reflection:
-                bitmapView.setImageBitmap(BitmapBuilder.reflectionEffect(BitmapBuilder.drawableToBitmap(imageDrawable), 4));
+                loadBitmap("reflection");
                 break;
             case R.id.rounded_corners:
-                bitmapView.setImageBitmap(BitmapBuilder.getRoundedCornerImage(BitmapBuilder.drawableToBitmap(imageDrawable), 50));
+                loadBitmap("rounded_corners");
                 break;
             case R.id.cartoon:
-                bitmapView.setImageBitmap(BitmapBuilder.sketchEffect(getApplicationContext(), BitmapBuilder.drawableToBitmap(imageDrawable)));
+                loadBitmap("cartoon");
                 break;
         }
     }

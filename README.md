@@ -2,7 +2,8 @@
 
 ![Application view](https://github.com/1ud0v1c/AndroidBitmapEffects/raw/master/screenshots/application.png "")
 
-Just a little library for Android to be able to play with Bitmap 
+Just a little library for Android to be able to play with Bitmap. You can choose an image from our gallery and try 
+the effects.
 
 ## Examples 
 
